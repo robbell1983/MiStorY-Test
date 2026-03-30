@@ -1,0 +1,38 @@
+{
+  "name": "mystory",
+  "version": "1.0.0",
+  "description": "Una web app React + Vite interattiva per esplorare gli eventi storici dal 10000 a.C. ai giorni nostri attraverso un mappamondo 3D dinamico.",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "author": "MyStory Contributors",
+  "homepage": "https://github.com/yourusername/mystory",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/mystory.git"
+  },
+  "keywords": [
+    "history",
+    "interactive-map",
+    "globe",
+    "react",
+    "vite",
+    "educational",
+    "timeline"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "globe.gl": "^2.39.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-globe.gl": "^2.27.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.2"
+  }
+}
