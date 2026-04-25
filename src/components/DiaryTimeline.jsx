@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 function formatSingleDate(dateValue) {
   if (!dateValue) return '';
@@ -29,6 +29,12 @@ function buildYearLabel(item) {
   const start = item.startYear < 0 ? `${Math.abs(item.startYear)} a.C.` : `${item.startYear} d.C.`;
   const end = item.endYear < 0 ? `${Math.abs(item.endYear)} a.C.` : `${item.endYear} d.C.`;
   return `${start} → ${end}`;
+}
+
+function formatYearLabelValue(year) {
+  if (year === 0) return '0';
+  if (year < 0) return `${Math.abs(year)} a.C.`;
+  return `${year}`;
 }
 
 function buildInitialForm(item) {
@@ -65,6 +71,10 @@ export default function DiaryTimeline({
     }
     return (a.endYear ?? 0) - (b.endYear ?? 0);
   });
+
+
+
+
 
   const startEditing = (item) => {
     setEditingId(item.id);
@@ -147,10 +157,30 @@ export default function DiaryTimeline({
         }}
       >
         <div>
-          <h2 style={{ margin: 0 }}>Linea del tempo · MyDiary</h2>
+          <h2 style={{ margin: 0 }}>Linea del tempo grafica · MyDiary</h2>
           <p style={{ margin: '6px 0 0 0', opacity: 0.82 }}>
             I tuoi eventi e le tue note salvate, ordinati nel tempo.
           </p>
+          <div style={{ marginTop: '10px', marginBottom: '6px' }}>
+            <div style={{ position: 'relative', width: '100%', height: '10px', borderRadius: '999px', background: 'rgba(255,255,255,0.08)' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, height: '10px', width: '100%', borderRadius: '999px', background: 'linear-gradient(90deg, #7c3aed 0%, #2563eb 50%, #06b6d4 100%)' }} />
+              {(() => {
+                const minYear = sortedItems[0]?.startYear ?? 0;
+                const maxYear = sortedItems[sortedItems.length - 1]?.endYear ?? new Date().getFullYear();
+                const start = Math.min(minYear, 0);
+                const end = Math.max(maxYear, 2000);
+                const markers = [0, 200, 1500, 1700, 1947, 1983, 1991, 2000].filter((y) => y >= start && y <= end);
+                return markers.map((year) => {
+                  const left = ((year - start) / (end - start)) * 100;
+                  return (
+                    <div key={year} style={{ position: 'absolute', left: `${left}%`, top: '-6px', transform: 'translateX(-50%)', fontSize: '0.67rem', color: '#cbd5e1', whiteSpace: 'nowrap' }}>
+                      {year}
+                    </div>
+                  );
+                });
+              })()}
+            </div>
+          </div>
         </div>
 
         <span
@@ -165,6 +195,72 @@ export default function DiaryTimeline({
           {sortedItems.length} elementi
         </span>
       </div>
+
+      {sortedItems.length > 0 && (
+        <div style={{ marginBottom: '18px' }}>
+          <div style={{ fontSize: '0.85rem', color: '#cbd5e1', marginBottom: '6px' }}>
+            Intervallo temporale: <strong>{formatYearLabelValue(sortedItems[0]?.startYear ?? 0)}</strong> → <strong>{formatYearLabelValue(sortedItems[sortedItems.length - 1]?.endYear ?? new Date().getFullYear())}</strong>
+          </div>
+
+          <div style={{ position: 'relative', marginBottom: '8px', height: '14px' }}>
+            <div
+              style={{
+                width: '100%',
+                height: '14px',
+                borderRadius: '999px',
+                background: 'linear-gradient(90deg, #7c3aed 0%, #2563eb 50%, #06b6d4 100%)',
+                boxShadow: '0 2px 8px rgba(124, 58, 237, 0.3)',
+                position: 'relative'
+              }}
+            />
+
+            {(() => {
+              const minYear = sortedItems[0]?.startYear ?? 0;
+              const maxYear = sortedItems[sortedItems.length - 1]?.endYear ?? new Date().getFullYear();
+              const start = Math.min(minYear, 0);
+              const end = Math.max(maxYear, 2000);
+              const markers = [0, 200, 1500, 1700, 1947, 1983, 1991, 2000].filter((y) => y >= start && y <= end);
+
+              return markers.map((year) => {
+                const left = ((year - start) / (end - start)) * 100;
+                return (
+                  <div key={year} style={{ position: 'absolute', left: `${left}%`, top: 0, bottom: 0, width: '1px', background: 'rgba(255,255,255,0.8)', transform: 'translateX(-0.5px)' }} />
+                );
+              });
+            })()}
+          </div>
+
+          <div style={{ position: 'relative', height: '24px', marginTop: '-2px' }}>
+            {(() => {
+              const minYear = sortedItems[0]?.startYear ?? 0;
+              const maxYear = sortedItems[sortedItems.length - 1]?.endYear ?? new Date().getFullYear();
+              const start = Math.min(minYear, 0);
+              const end = Math.max(maxYear, 2000);
+              const markers = [0, 200, 1500, 1700, 1947, 1983, 1991, 2000].filter((y) => y >= start && y <= end);
+
+              return markers.map((year) => {
+                const left = ((year - start) / (end - start)) * 100;
+                return (
+                  <div
+                    key={year}
+                    style={{
+                      position: 'absolute',
+                      left: `${left}%`,
+                      top: 0,
+                      transform: 'translateX(-50%)',
+                      color: '#e2e8f0',
+                      fontSize: '0.72rem',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    {year >= 0 ? year : `${Math.abs(year)} a.C.`}
+                  </div>
+                );
+              });
+            })()}
+          </div>
+        </div>
+      )}
 
       {sortedItems.length === 0 ? (
         <div
@@ -191,16 +287,19 @@ export default function DiaryTimeline({
           />
 
           <div style={{ display: 'grid', gap: '16px' }}>
-            {sortedItems.map((item) => {
+            {sortedItems.map((item, index) => {
               const isActive = focusedEvent?.id === item.id;
               const isEditing = editingId === item.id;
+              const offset = index % 2 === 0 ? 8 : -8;
 
               return (
                 <div
                   key={item.id}
                   style={{
                     position: 'relative',
-                    paddingLeft: '18px'
+                    paddingLeft: '18px',
+                    transform: `translateY(${offset}px)`,
+                    transition: 'transform 0.2s ease'
                   }}
                 >
                   <div

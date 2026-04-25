@@ -355,12 +355,32 @@ export default function App() {
     return { minYear, maxYear: maxYear === minYear ? maxYear + 1 : maxYear };
   }, [diaryTimelineData]);
 
+  const timelineScale = (normalized) => {
+    const value = Math.max(0, Math.min(1, normalized));
+    return Math.pow(value, 0.68) * 100;
+  };
+
   const timelinePosition = (year) => {
     if (!diaryTimelineRange) return 0;
     const { minYear, maxYear } = diaryTimelineRange;
     const span = maxYear - minYear;
     if (span <= 0) return 50;
-    return Math.min(100, Math.max(0, ((Number(year || minYear) - minYear) / span) * 100));
+    const normalized = (Number(year || minYear) - minYear) / span;
+    return Math.min(100, Math.max(0, timelineScale(normalized)));
+  };
+
+  const timelineTickYears = useMemo(() => {
+    if (!diaryTimelineRange) return [];
+
+    const { minYear, maxYear } = diaryTimelineRange;
+    const span = maxYear - minYear;
+    const ticks = [0, 0.25, 0.5, 0.75, 1].map((fraction) => Math.round(minYear + span * fraction));
+    return [...new Set([minYear, ...ticks, maxYear])].sort((a, b) => a - b);
+  }, [diaryTimelineRange]);
+
+  const formatTimelineYear = (year) => {
+    if (year < 0) return `${Math.abs(year)} a.C.`;
+    return String(year);
   };
 
   const getEventColor = (eventId) => {
@@ -486,11 +506,24 @@ export default function App() {
                       style={{
                         left: `${left}%`,
                         width: `${width}%`,
-                        backgroundColor: barColor
+                        backgroundColor: barColor,
+                        minWidth: '2.4%'
                       }}
                     />
                   );
                 })}
+                <div className="timeline-axis">
+                  {timelineTickYears.map((year) => (
+                    <div
+                      key={year}
+                      className="timeline-axis-mark"
+                      style={{ left: `${timelinePosition(year)}%` }}
+                    >
+                      <span className="timeline-axis-line" />
+                      <span className="timeline-axis-label">{formatTimelineYear(year)}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </section>

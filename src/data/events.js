@@ -7,12 +7,12 @@ export const regionConfig = {
   europe: {
     id: 'europe',
     label: 'Europa',
-    color: '#2563eb'
+    color: '#facc15' // giallo caldo per staccare sul blu oceano
   },
   mediterranean: {
     id: 'mediterranean',
     label: 'Bacino del Mediterraneo',
-    color: '#16a34a'
+    color: '#f43f5e' // rosso corallo per emergere sull'acqua
   },
   asiaOceania: {
     id: 'asiaOceania',
@@ -2058,7 +2058,7 @@ export const historicalEvents = [
     wikipediaUrl: 'https://it.wikipedia.org/wiki/Impero_Maurya'
   },
   {
-    id: 'evt-roma-001',
+    id: 'evt-roma-013',
     title: 'Nascita della Repubblica Romana (509 a.C.)',
     description: 'La Repubblica Romana si forma dopo il rovesciamento dell\'ultimo re, Tarquinio il Superbo.',
     startYear: -509,
@@ -2070,7 +2070,7 @@ export const historicalEvents = [
     wikipediaUrl: 'https://it.wikipedia.org/wiki/Repubblica_romana'
   },
   {
-    id: 'evt-roma-002',
+    id: 'evt-roma-014',
     title: 'Guerre Puniche tra Roma e Cartagine (264-146 a.C.)',
     description: 'Tre grandi guerre tra Roma e Cartagine per il controllo del Mediterraneo, con la vittoria finale di Roma.',
     startYear: -264,
@@ -2082,7 +2082,7 @@ export const historicalEvents = [
     wikipediaUrl: 'https://it.wikipedia.org/wiki/Guerre_puniche'
   },
   {
-    id: 'evt-roma-003',
+    id: 'evt-roma-015',
     title: 'Crisi della Repubblica Romana (133-30 a.C.)',
     description: 'La Repubblica Romana entra in una fase di instabilità politica con guerre civili che culminano nell\'Impero.',
     startYear: -133,
@@ -2200,5 +2200,101 @@ export const historicalEvents = [
     lng: 12.5,
     region: 'mediterranean',
     wikipediaUrl: 'https://it.wikipedia.org/wiki/Caduta_dell%27Impero_romano_d%27Occidente'
+  },
+  {
+    id: 'evt-usa-001',
+    title: 'Dichiarazione di Indipendenza USA (1776)',
+    description: 'Il 4 luglio 1776, le tredici colonie americane dichiarano indipendenza dalla Gran Bretagna, fondando una nuova nazione.',
+    startYear: 1776,
+    endYear: 1776,
+    yearLabel: '1776 d.C.',
+    lat: 39.95,
+    lng: -75.17,
+    region: 'americas',
+    wikipediaUrl: 'https://it.wikipedia.org/wiki/Dichiarazione_di_indipendenza_americana'
+  },
+  {
+    id: 'evt-usa-002',
+    title: 'Indipendenza dei paesi latinoamericani (1810-1825)',
+    description: 'Le colonie spagnole in America Latina si liberano dal dominio spagnolo, creando nuovi Stati indipendenti.',
+    startYear: 1810,
+    endYear: 1825,
+    yearLabel: '1810-1825 d.C.',
+    lat: -12.05,
+    lng: -77.04,
+    region: 'americas',
+    wikipediaUrl: 'https://it.wikipedia.org/wiki/Guerre_d%27indipendenza_ispanoamericane'
+  },
+  {
+    id: 'evt-usa-003',
+    title: 'Ferrovia Transcontinentale (1869)',
+    description: 'Completamento della ferrovia transcontinentale che collega l\'Oceano Atlantico con il Pacifico, trasformando gli USA.',
+    startYear: 1869,
+    endYear: 1869,
+    yearLabel: '1869 d.C.',
+    lat: 41.18,
+    lng: -104.82,
+    region: 'americas',
+    wikipediaUrl: 'https://it.wikipedia.org/wiki/First_Transcontinental_Railroad'
+  },
+  {
+    id: 'evt-usa-004',
+    title: 'Guerra Civil Americana (1861-1865)',
+    description: 'Il conflitto interno che termina la schiavitù e consolida l\'unità nazionale americana.',
+    startYear: 1861,
+    endYear: 1865,
+    yearLabel: '1861-1865 d.C.',
+    lat: 32.34,
+    lng: -86.30,
+    region: 'americas',
+    wikipediaUrl: 'https://it.wikipedia.org/wiki/Guerra_di_secessione_americana'
+  },
+  {
+    id: 'evt-usa-005',
+    title: 'Rivoluzione Cubana (1953-1959)',
+    description: 'Fidel Castro conduce una rivoluzione che elimina la dittatura di Batista e crea uno Stato comunista nel Caribi.',
+    startYear: 1953,
+    endYear: 1959,
+    yearLabel: '1953-1959 d.C.',
+    lat: 23.11,
+    lng: -82.37,
+    region: 'americas',
+    wikipediaUrl: 'https://it.wikipedia.org/wiki/Rivoluzione_cubana'
+  },
+  {
+    id: 'evt-usa-006',
+    title: 'Crisi dei Missili Cubani (1962)',
+    description: 'Lo scontro più vicino a un conflitto nucleare globale, risolto attraverso la diplomazia.',
+    startYear: 1962,
+    endYear: 1962,
+    yearLabel: '1962 d.C.',
+    lat: 23.11,
+    lng: -82.37,
+    region: 'americas',
+    wikipediaUrl: 'https://it.wikipedia.org/wiki/Crisi_dei_missili_di_Cuba'
+  },
+  {
+    id: 'evt-usa-007',
+    title: 'Movimento per i Diritti Civili (1955-1968)',
+    description: 'Movimento di protesta che porta all\'eliminazione della segregazione razziale negli USA.',
+    startYear: 1955,
+    endYear: 1968,
+    yearLabel: '1955-1968 d.C.',
+    lat: 33.74,
+    lng: -84.38,
+    region: 'americas',
+    wikipediaUrl: 'https://it.wikipedia.org/wiki/Movimento_per_i_diritti_civili_degli_afroamericani'
+  },
+  {
+    id: 'evt-usa-008',
+    title: 'Rivoluzione Digitale e Silicon Valley (1970-2020)',
+    description: 'La California diventa la culla dell\'informatica, Internet, social media e della rivoluzione digitale mondiale.',
+    startYear: 1970,
+    endYear: 2020,
+    yearLabel: '1970-2020 d.C.',
+    lat: 37.39,
+    lng: -122.08,
+    region: 'americas',
+    wikipediaUrl: 'https://it.wikipedia.org/wiki/Silicon_Valley'
   }
 ];

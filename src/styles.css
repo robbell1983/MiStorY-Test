@@ -221,13 +221,49 @@ input[type='number']:focus {
   align-items: center;
   gap: 10px;
   text-align: left;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  color: #f8fafc;
+  font-weight: 500;
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+  border: none;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.legend-chip:hover {
+  transform: translateY(-1px);
+}
+
+.legend-chip:focus-visible {
+  outline: 2px solid rgba(96, 165, 250, 0.6);
+  outline-offset: 2px;
+}
+
+.legend-chip.inactive-legend {
+  opacity: 0.65;
+}
+
+.legend-chip.active-legend {
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.24);
 }
 
 .legend-dot {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.8rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.legend-dot-active {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
 }
 
 .info-item,
@@ -258,6 +294,55 @@ input[type='number']:focus {
 .globe-shell {
   width: 100%;
   min-height: 420px;
+}
+
+.globe-event-card {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(4, 10, 24, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  color: #e2e8f0;
+}
+
+.globe-event-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.globe-event-badge {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.globe-event-title {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  color: #f8fafc;
+}
+
+.globe-event-meta {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+  color: #94a3b8;
+}
+
+.globe-event-description {
+  margin: 12px 0 0;
+  color: #cbd5e1;
+  line-height: 1.65;
+  font-size: 0.94rem;
 }
 
 .graphic-timeline {
@@ -305,6 +390,7 @@ input[type='number']:focus {
   opacity: 0.82;
   transition: opacity 0.2s ease, box-shadow 0.2s ease, height 0.2s ease, top 0.2s ease;
   cursor: pointer;
+  min-width: 2.4%;
 }
 
 .timeline-bar:hover,
@@ -312,6 +398,39 @@ input[type='number']:focus {
   opacity: 1;
   height: 36px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4), 0 0 8px currentColor;
+}
+
+.timeline-axis {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -38px;
+  height: 30px;
+  pointer-events: none;
+}
+
+.timeline-axis-mark {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #cbd5e1;
+}
+
+.timeline-axis-line {
+  width: 1px;
+  height: 8px;
+  background: rgba(203, 213, 225, 0.7);
+  margin-bottom: 4px;
+}
+
+.timeline-axis-label {
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar-card {
