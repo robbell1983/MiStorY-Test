@@ -149,12 +149,16 @@ export default function GlobeMap({ events, focusedEvent, onFocusEvent }) {
         <Globe
           ref={globeRef}
           onPointHover={(point) => setHoveredPoint(point || null)}
-          onPointClick={(point) => onFocusEvent(point)}
+          onPointClick={(point) => {
+            onFocusEvent(point);
+            setHoveredPoint(point);
+          }}
           width={dimensions.width}
           height={dimensions.height}
           globeImageUrl="https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
           bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
           backgroundColor="rgba(0,0,0,0)"
+          enablePointerInteraction={true}
           pointsData={pointData}
           pointLat="lat"
           pointLng="lng"

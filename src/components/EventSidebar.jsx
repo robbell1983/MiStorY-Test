@@ -20,6 +20,23 @@ export default function EventSidebar({
 }) {
   return (
     <aside className="panel sidebar-panel">
+      <a
+        href="https://lepezzeacoloreband.it/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="ad-banner ad-banner-image"
+        title="Visita Le Pezze a Colore Band"
+      >
+        <img
+          src="https://lepezzeacoloreband.it/assets/pezze_logo-zKiB85CA.jpeg"
+          alt="Le Pezze a Colore"
+        />
+        <div className="ad-banner-copy">
+          <strong>Le Pezze a Colore</strong>
+          <span>Clicca per visitare il sito</span>
+        </div>
+      </a>
+
       <div className="panel-header">
         <h2>{showOnlyDiary ? 'MyDiary' : 'Eventi visibili'}</h2>
         <span>{events.length}</span>

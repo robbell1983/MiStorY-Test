@@ -294,6 +294,10 @@ input[type='number']:focus {
 .globe-shell {
   width: 100%;
   min-height: 420px;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .globe-event-card {
@@ -563,6 +567,129 @@ input[type='number']:focus {
   color: #64748b;
 }
 
+@media (max-width: 720px) {
+  .hero {
+    padding: 18px 16px;
+  }
+
+  .hero-text {
+    font-size: 0.98rem;
+  }
+
+  .layout-grid {
+    gap: 16px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .section-header h2 {
+    font-size: 1.08rem;
+  }
+
+  .section-header button,
+  .primary-button {
+    width: 100%;
+  }
+
+  .globe-shell {
+    min-height: 320px;
+  }
+
+  .legend-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .legend-chip {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+
+  .globe-event-card {
+    padding: 14px;
+  }
+
+  .globe-event-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .globe-event-badge {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  .timeline-axis {
+    bottom: -44px;
+  }
+
+  .timeline-axis-label {
+    font-size: 0.68rem;
+  }
+
+  .event-item {
+    padding: 12px;
+  }
+
+  .sidebar-card {
+    max-height: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .app-shell {
+    padding: 12px;
+  }
+
+  .hero {
+    padding: 16px 14px;
+    border-radius: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+  }
+
+  .legend-chip {
+    padding: 10px 10px;
+    gap: 8px;
+  }
+
+  .legend-dot {
+    width: 16px;
+    height: 16px;
+  }
+
+  .globe-event-description,
+  .globe-event-meta {
+    font-size: 0.88rem;
+  }
+
+  .timeline-axis-label {
+    display: none;
+  }
+
+  .timeline-axis {
+    bottom: -32px;
+  }
+
+  .ad-banner {
+    margin: 16px 12px;
+    padding: 14px 18px;
+  }
+
+  .ad-banner-text {
+    font-size: 0.95rem;
+  }
+
+  .ad-banner-subtext {
+    font-size: 0.8rem;
+  }
+}
+
 /* AI generated event badge */
 .ai-badge {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -612,4 +739,77 @@ input[type='number']:focus {
   color: #f1f5f9;
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+/* Banner pubblicitario */
+.ad-banner {
+  display: block;
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 20px 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(147, 197, 253, 0.15));
+  border: 2px solid rgba(37, 99, 235, 0.4);
+  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.3);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+.ad-banner-image {
+  display: grid;
+  gap: 14px;
+  align-items: center;
+  justify-items: center;
+  padding: 14px;
+  min-height: 180px;
+}
+
+.ad-banner-image img {
+  max-width: 100%;
+  max-height: 140px;
+  object-fit: contain;
+  border-radius: 16px;
+  display: block;
+}
+
+.ad-banner-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #e0f2fe;
+  text-align: center;
+}
+
+.ad-banner-copy strong {
+  font-size: 1rem;
+}
+
+.ad-banner-copy span {
+  font-size: 0.88rem;
+  color: #bae6fd;
+}
+
+.ad-banner:hover {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(147, 197, 253, 0.25));
+  border-color: rgba(37, 99, 235, 0.7);
+  box-shadow: 0 16px 50px rgba(37, 99, 235, 0.4);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.ad-banner-text {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.ad-banner-subtext {
+  margin: 4px 0 0 0;
+  font-size: 0.85rem;
+  color: #93c5fd;
+  opacity: 0.9;
 }
