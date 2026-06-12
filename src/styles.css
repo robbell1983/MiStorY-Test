@@ -53,8 +53,21 @@ input[type='range'] {
   padding: 0;
 }
 
+.year-readout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.year-readout strong {
+  white-space: nowrap;
+}
+
 input[type='number'] {
-  width: 80px;
+  min-width: 100px;
+  width: clamp(100px, 10vw, 150px);
   margin: 0.4rem 0.5rem 0 0.5rem;
   text-align: center;
   font-weight: bold;

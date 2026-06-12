@@ -9,6 +9,8 @@ import DiaryTimeline from './components/DiaryTimeline';
 import { historicalEvents, regionConfig } from './data/events';
 import { searchWikipediaEvents } from './services/wikipedia';
 
+const _norm = (s) => (s && s.normalize ? s.normalize('NFC') : (s || ''));
+
 const USERS_KEY = 'mystory_users';
 const SESSION_KEY = 'mystory_session';
 const MARKERS_KEY = 'mystory_personal_markers';
@@ -53,21 +55,22 @@ export default function App() {
     const sourceEvents = baseEvents
       .filter((event) => event.endYear >= yearRange[0] && event.startYear <= yearRange[1])
       .filter((event) => {
-        if (!searchQuery.trim()) return true;
-        const query = searchQuery.toLowerCase();
-        return (
-          event.title.toLowerCase().includes(query) ||
-          event.description.toLowerCase().includes(query)
-        );
-      });
+          if (!searchQuery.trim()) return true;
+          const query = searchQuery.toLowerCase();
+          return (
+            _norm(event.title).toLowerCase().includes(query) ||
+            _norm(event.description).toLowerCase().includes(query)
+          );
+        });
 
     const seen = new Set();
     return sourceEvents
       .filter((event) => {
-        if (seen.has(event.title)) return false;
-        seen.add(event.title);
-        return true;
-      })
+          const key = _norm(event.title);
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        })
       .slice(0, 8);
   }, [baseEvents, yearRange, searchQuery]);
 
@@ -82,11 +85,11 @@ export default function App() {
         if (!searchQuery.trim()) return true;
         const query = searchQuery.toLowerCase();
         return (
-          event.title.toLowerCase().includes(query) ||
-          event.description.toLowerCase().includes(query) ||
-          (event.location && event.location.toLowerCase().includes(query)) ||
-          (event.diaryNote && event.diaryNote.toLowerCase().includes(query)) ||
-          (event.cityName && event.cityName.toLowerCase().includes(query))
+          _norm(event.title).toLowerCase().includes(query) ||
+          _norm(event.description).toLowerCase().includes(query) ||
+          (event.location && _norm(event.location).toLowerCase().includes(query)) ||
+          (event.diaryNote && _norm(event.diaryNote).toLowerCase().includes(query)) ||
+          (event.cityName && _norm(event.cityName).toLowerCase().includes(query))
         );
       })
       .sort((a, b) => a.startYear - b.startYear);

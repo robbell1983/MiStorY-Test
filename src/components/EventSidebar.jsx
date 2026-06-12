@@ -9,6 +9,8 @@ function truncateText(text, maxLength = 180) {
   return `${value.slice(0, maxLength)}...`;
 }
 
+const _norm = (s) => (s && s.normalize ? s.normalize('NFC') : (s || ''));
+
 export default function EventSidebar({
   events,
   focusedEvent,
@@ -83,13 +85,13 @@ export default function EventSidebar({
               Evento selezionato
             </div>
 
-            <h3 style={{ margin: 0, lineHeight: 1.2 }}>{focusedEvent.title}</h3>
+            <h3 style={{ margin: 0, lineHeight: 1.2 }}>{_norm(focusedEvent.title)}</h3>
           </div>
 
           {focusedEvent.imageUrl && (
             <img
               src={focusedEvent.imageUrl}
-              alt={focusedEvent.title}
+                alt={_norm(focusedEvent.title)}
               style={{
                 width: '100%',
                 borderRadius: '14px',
@@ -129,12 +131,12 @@ export default function EventSidebar({
               fontSize: '0.98rem'
             }}
           >
-            {focusedEvent.description || 'Nessuna descrizione disponibile.'}
+            {_norm(focusedEvent.description) || 'Nessuna descrizione disponibile.'}
           </p>
 
           {focusedEvent.diaryNote && (
             <p style={{ marginTop: 0, fontStyle: 'italic' }}>
-              <strong>Nota MyDiary:</strong> {focusedEvent.diaryNote}
+              <strong>Nota MyDiary:</strong> {_norm(focusedEvent.diaryNote)}
             </p>
           )}
 
@@ -211,7 +213,7 @@ export default function EventSidebar({
               }}
             >
               <div style={{ display: 'grid', gap: '8px' }}>
-                <strong style={{ lineHeight: 1.25 }}>{event.title}</strong>
+                <strong style={{ lineHeight: 1.25 }}>{_norm(event.title)}</strong>
 
                 <div style={{ fontSize: '0.9rem', opacity: 0.9 }}>
                   <span style={{ fontWeight: 700 }}>Periodo:</span> {event.yearLabel || 'N/D'}
@@ -222,13 +224,13 @@ export default function EventSidebar({
                 </div>
 
                 <small style={{ lineHeight: 1.45, opacity: 0.92 }}>
-                  {truncateText(event.description, 160)}
+                  {truncateText(_norm(event.description), 160)}
                 </small>
 
                 {event.diaryNote && (
-                  <small style={{ lineHeight: 1.45, opacity: 0.92 }}>
-                    <strong>Nota:</strong> {truncateText(event.diaryNote, 100)}
-                  </small>
+                    <small style={{ lineHeight: 1.45, opacity: 0.92 }}>
+                      <strong>Nota:</strong> {truncateText(_norm(event.diaryNote), 100)}
+                    </small>
                 )}
 
                 {event.isDiaryItem && (
