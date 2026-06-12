@@ -105,6 +105,11 @@ export default function GlobeMap({ events, focusedEvent, onFocusEvent }) {
     if (typeof onFocusEvent === 'function') onFocusEvent(null);
   };
 
+  const decodeEscapes = (s) => {
+    if (typeof s !== 'string') return s;
+    return s.replace(/\\u([0-9A-Fa-f]{4})/g, (match, g1) => String.fromCharCode(parseInt(g1, 16)));
+  };
+
   return (
     <section className="card globe-card">
       <div className="section-header">
@@ -170,8 +175,12 @@ export default function GlobeMap({ events, focusedEvent, onFocusEvent }) {
             const active = hoveredPoint?.id === point.id || focusedEvent?.id === point.id;
             if (!active) return '';
             const icon = point.icon || guessEventIcon(point);
-            const safeTitle = (point.title || '').normalize ? (point.title || '').normalize('NFC') : (point.title || '');
-            const safeDesc = (point.description || '').normalize ? (point.description || '').normalize('NFC') : (point.description || '');
+            const rawTitle = point.title || '';
+            const rawDesc = point.description || '';
+            const decodedTitle = decodeEscapes(rawTitle);
+            const decodedDesc = decodeEscapes(rawDesc);
+            const safeTitle = decodedTitle && decodedTitle.normalize ? decodedTitle.normalize('NFC') : decodedTitle;
+            const safeDesc = decodedDesc && decodedDesc.normalize ? decodedDesc.normalize('NFC') : decodedDesc;
             return `
             <div style="padding:12px;max-width:320px;background:rgba(8,14,30,0.92);border:1px solid rgba(255,255,255,0.16);border-radius:18px;box-shadow:0 16px 35px rgba(0,0,0,0.42);font-family:system-ui, sans-serif;color:#f8fafc;line-height:1.5;">
               <div style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:${icon.color};color:#fff;font-size:1.3rem;margin-bottom:8px;">${icon.symbol}</div>
@@ -184,7 +193,7 @@ export default function GlobeMap({ events, focusedEvent, onFocusEvent }) {
           labelsData={labelData}
           labelLat="lat"
           labelLng="lng"
-          labelText={(d) => (d.title && d.title.normalize ? d.title.normalize('NFC') : (d.title || ''))}
+          labelText={(d) => { const t = decodeEscapes(d.title || ''); return t && t.normalize ? t.normalize('NFC') : t; }}
           labelSize={1.7}
           labelDotRadius={0.5}
           labelAltitude={0.04}
@@ -199,11 +208,11 @@ export default function GlobeMap({ events, focusedEvent, onFocusEvent }) {
               {currentIcon?.symbol || '🌍'}
             </span>
             <div>
-              <h3 className="globe-event-title">{(currentHover.title && currentHover.title.normalize) ? currentHover.title.normalize('NFC') : (currentHover.title || '')}</h3>
+              <h3 className="globe-event-title">{(() => { const t = decodeEscapes(currentHover.title || ''); return t && t.normalize ? t.normalize('NFC') : t; })()}</h3>
               <p className="globe-event-meta">{currentHover.yearLabel || 'Periodo non disponibile'}</p>
             </div>
           </div>
-          <p className="globe-event-description">{currentHover.description || 'Nessuna descrizione disponibile.'}</p>
+          <p className="globe-event-description">{(() => { const d = decodeEscapes(currentHover.description || 'Nessuna descrizione disponibile.'); return d && d.normalize ? d.normalize('NFC') : d; })()}</p>
         </div>
       )}
 
