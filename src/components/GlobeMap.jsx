@@ -170,19 +170,21 @@ export default function GlobeMap({ events, focusedEvent, onFocusEvent }) {
             const active = hoveredPoint?.id === point.id || focusedEvent?.id === point.id;
             if (!active) return '';
             const icon = point.icon || guessEventIcon(point);
+            const safeTitle = (point.title || '').normalize ? (point.title || '').normalize('NFC') : (point.title || '');
+            const safeDesc = (point.description || '').normalize ? (point.description || '').normalize('NFC') : (point.description || '');
             return `
             <div style="padding:12px;max-width:320px;background:rgba(8,14,30,0.92);border:1px solid rgba(255,255,255,0.16);border-radius:18px;box-shadow:0 16px 35px rgba(0,0,0,0.42);font-family:system-ui, sans-serif;color:#f8fafc;line-height:1.5;">
               <div style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:${icon.color};color:#fff;font-size:1.3rem;margin-bottom:8px;">${icon.symbol}</div>
-              <div style="font-size:1rem;font-weight:700;margin-bottom:6px;color:#f8fafc;text-shadow:0 1px 3px rgba(0,0,0,0.45);">${point.title}</div>
+              <div style="font-size:1rem;font-weight:700;margin-bottom:6px;color:#f8fafc;text-shadow:0 1px 3px rgba(0,0,0,0.45);">${safeTitle}</div>
               <div style="font-size:0.92rem;color:#cbd5e1;margin-bottom:4px;">${point.yearLabel || ''}</div>
-              <div style="font-size:0.86rem;color:#e2e8f0;white-space:normal;">${point.description || ''}</div>
+              <div style="font-size:0.86rem;color:#e2e8f0;white-space:normal;">${safeDesc}</div>
             </div>
           `;
           }}
           labelsData={labelData}
           labelLat="lat"
           labelLng="lng"
-          labelText="title"
+          labelText={(d) => (d.title && d.title.normalize ? d.title.normalize('NFC') : (d.title || ''))}
           labelSize={1.7}
           labelDotRadius={0.5}
           labelAltitude={0.04}
@@ -197,7 +199,7 @@ export default function GlobeMap({ events, focusedEvent, onFocusEvent }) {
               {currentIcon?.symbol || '🌍'}
             </span>
             <div>
-              <h3 className="globe-event-title">{currentHover.title}</h3>
+              <h3 className="globe-event-title">{(currentHover.title && currentHover.title.normalize) ? currentHover.title.normalize('NFC') : (currentHover.title || '')}</h3>
               <p className="globe-event-meta">{currentHover.yearLabel || 'Periodo non disponibile'}</p>
             </div>
           </div>

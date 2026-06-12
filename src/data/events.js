@@ -42,7 +42,7 @@ export const defaultInfoBlocks = [
 export const historicalEvents = [
   {
     id: 'evt-001',
-    title: 'Gerico, tra le prime città fortificate',
+    title: 'Gerico, tra le prime citt\u00E0 fortificate',
     description:
       'Gerico viene spesso indicata tra i primi grandi insediamenti urbani e fortificati del Vicino Oriente.',
     startYear: -8300,

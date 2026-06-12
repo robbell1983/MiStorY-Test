@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 
+const _norm = (s) => (s && s.normalize ? s.normalize('NFC') : (s || ''));
+
 function formatSingleDate(dateValue) {
   if (!dateValue) return '';
   const date = new Date(dateValue);
@@ -349,7 +351,7 @@ export default function DiaryTimeline({
                                 marginBottom: '6px'
                               }}
                             >
-                              {item.title}
+                              {_norm(item.title)}
                             </div>
 
                             <div
@@ -421,7 +423,7 @@ export default function DiaryTimeline({
                         </div>
 
                         <div style={{ marginTop: '10px', lineHeight: 1.55 }}>
-                          {item.description}
+                          {_norm(item.description)}
                         </div>
 
                         {item.diaryNote && (
@@ -434,7 +436,7 @@ export default function DiaryTimeline({
                               color: '#e9d5ff'
                             }}
                           >
-                            <strong>Nota:</strong> {item.diaryNote}
+                            <strong>Nota:</strong> {_norm(item.diaryNote)}
                           </div>
                         )}
 
@@ -446,7 +448,7 @@ export default function DiaryTimeline({
                               opacity: 0.9
                             }}
                           >
-                            <strong>Città:</strong> {item.cityName}
+                            <strong>Citt\u00E0:</strong> {item.cityName}
                           </div>
                         )}
 
@@ -495,7 +497,7 @@ export default function DiaryTimeline({
                           onChange={(e) =>
                             setEditForm((prev) => ({ ...prev, cityName: e.target.value }))
                           }
-                          placeholder="Città"
+                          placeholder="Citt\u00E0"
                         />
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>

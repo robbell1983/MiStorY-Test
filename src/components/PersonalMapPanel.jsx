@@ -25,6 +25,8 @@ const initialDiaryForm = {
   note: ''
 };
 
+const _norm = (s) => (s && s.normalize ? s.normalize('NFC') : (s || ''));
+
 function formatPeriod(startYear, endYear) {
   const start = Number(startYear);
   const end = Number(endYear);
@@ -81,7 +83,7 @@ function inferRegionFromCoords(lat, lng) {
 async function geocodeCity(cityName) {
   const query = String(cityName || '').trim();
   if (!query) {
-    throw new Error('Inserisci il nome di una città.');
+    throw new Error('Inserisci il nome di una citt\u00E0.');
   }
 
   const url =
@@ -95,13 +97,13 @@ async function geocodeCity(cityName) {
   });
 
   if (!response.ok) {
-    throw new Error('Errore durante la ricerca della città.');
+    throw new Error('Errore durante la ricerca della citt\u00E0.');
   }
 
   const data = await response.json();
 
   if (!Array.isArray(data) || data.length === 0) {
-    throw new Error('Città non trovata.');
+    throw new Error('Citt\u00E0 non trovata.');
   }
 
   return {
@@ -195,7 +197,7 @@ export default function PersonalMapPanel({
 
       setCityLookupMessage(`Coordinate trovate: ${result.displayName}`);
     } catch (error) {
-      setCityLookupMessage(error.message || 'Impossibile trovare la città.');
+      setCityLookupMessage(error.message || 'Impossibile trovare la citt\u00E0.');
     } finally {
       setCityLookupLoading(false);
     }
@@ -212,7 +214,7 @@ export default function PersonalMapPanel({
       diaryForm.lng === ''
     ) {
       setDiaryMessage(
-        'Compila titolo, descrizione, data inizio e coordinate oppure usa il nome città.'
+        'Compila titolo, descrizione, data inizio e coordinate oppure usa il nome citt\u00E0.'
       );
       return;
     }
@@ -414,7 +416,7 @@ export default function PersonalMapPanel({
         </label>
 
         <div style={{ display: 'grid', gap: '6px' }}>
-          <label>Nome città</label>
+          <label>Nome citt\u00E0</label>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '10px' }}>
             <input
               type="text"
@@ -480,10 +482,10 @@ export default function PersonalMapPanel({
                   border: '1px solid rgba(255,255,255,0.08)'
                 }}
               >
-                <strong>{event.title}</strong>
+                <strong>{_norm(event.title)}</strong>
                 <div style={{ margin: '6px 0' }}>{event.yearLabel}</div>
                 <small style={{ display: 'block', marginBottom: '10px' }}>
-                  {String(event.description || '').slice(0, 140)}...
+                  {String(_norm(event.description)).slice(0, 140)}...
                 </small>
                 <button type="button" onClick={() => onAddEventToDiary(event)}>
                   Aggiungi a MyDiary
@@ -509,19 +511,19 @@ export default function PersonalMapPanel({
                 border: '1px solid rgba(124,58,237,0.24)'
               }}
             >
-              <strong>{entry.title}</strong>
+              <strong>{_norm(entry.title)}</strong>
               <div style={{ margin: '6px 0' }}>{entry.yearLabel}</div>
               {entry.cityName && (
                 <small style={{ display: 'block', marginBottom: '8px' }}>
-                  <strong>Città:</strong> {entry.cityName}
+                  <strong>Città:</strong> {_norm(entry.cityName)}
                 </small>
               )}
               <small style={{ display: 'block', marginBottom: '8px' }}>
-                {entry.description}
+                {_norm(entry.description)}
               </small>
               {entry.diaryNote && (
-                <small style={{ display: 'block', marginBottom: '8px' }}>
-                  <strong>Nota:</strong> {entry.diaryNote}
+                  <small style={{ display: 'block', marginBottom: '8px' }}>
+                  <strong>Nota:</strong> {_norm(entry.diaryNote)}
                 </small>
               )}
               <button type="button" onClick={() => onDeleteDiaryItem(entry.id)}>
@@ -547,9 +549,9 @@ export default function PersonalMapPanel({
                 border: '1px solid rgba(255,255,255,0.08)'
               }}
             >
-              <strong>{marker.title}</strong>
+              <strong>{_norm(marker.title)}</strong>
               <div style={{ margin: '6px 0' }}>{marker.yearLabel}</div>
-              <small style={{ display: 'block', marginBottom: '8px' }}>{marker.description}</small>
+              <small style={{ display: 'block', marginBottom: '8px' }}>{_norm(marker.description)}</small>
               <button type="button" onClick={() => onDeleteMarker(marker.id)}>
                 Elimina evento personale
               </button>
