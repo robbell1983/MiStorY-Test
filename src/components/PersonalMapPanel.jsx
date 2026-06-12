@@ -83,7 +83,7 @@ function inferRegionFromCoords(lat, lng) {
 async function geocodeCity(cityName) {
   const query = String(cityName || '').trim();
   if (!query) {
-    throw new Error('Inserisci il nome di una citt\u00E0.');
+    throw new Error('Inserisci il nome di una città.');
   }
 
   const url =
@@ -97,13 +97,13 @@ async function geocodeCity(cityName) {
   });
 
   if (!response.ok) {
-    throw new Error('Errore durante la ricerca della citt\u00E0.');
+    throw new Error('Errore durante la ricerca della città.');
   }
 
   const data = await response.json();
 
   if (!Array.isArray(data) || data.length === 0) {
-    throw new Error('Citt\u00E0 non trovata.');
+    throw new Error('Città non trovata.');
   }
 
   return {
@@ -197,7 +197,7 @@ export default function PersonalMapPanel({
 
       setCityLookupMessage(`Coordinate trovate: ${result.displayName}`);
     } catch (error) {
-      setCityLookupMessage(error.message || 'Impossibile trovare la citt\u00E0.');
+      setCityLookupMessage(error.message || 'Impossibile trovare la città.');
     } finally {
       setCityLookupLoading(false);
     }
@@ -214,7 +214,7 @@ export default function PersonalMapPanel({
       diaryForm.lng === ''
     ) {
       setDiaryMessage(
-        'Compila titolo, descrizione, data inizio e coordinate oppure usa il nome citt\u00E0.'
+        'Compila titolo, descrizione, data inizio e coordinate oppure usa il nome città.'
       );
       return;
     }
@@ -416,7 +416,7 @@ export default function PersonalMapPanel({
         </label>
 
         <div style={{ display: 'grid', gap: '6px' }}>
-          <label>Nome citt\u00E0</label>
+          <label>Nome città</label>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '10px' }}>
             <input
               type="text"

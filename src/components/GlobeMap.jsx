@@ -17,7 +17,7 @@ const guessEventIcon = (event) => {
   if (/invenzione|scoperta|tecnologia|scienza|progresso/i.test(text)) {
     return { symbol: '💡', label: 'Scienza', color: '#f59e0b' };
   }
-  if (/citt[\u00E0ae]|impero|regno|stato|civilt[\u00E0ae]|cultura/i.test(text)) {
+  if (/citt[àae]|impero|regno|stato|civilt[àae]|cultura/i.test(text)) {
     return { symbol: '🏛️', label: 'Civiltà', color: '#a855f7' };
   }
   return { symbol: '🌍', label: 'Generale', color: '#14b8a6' };

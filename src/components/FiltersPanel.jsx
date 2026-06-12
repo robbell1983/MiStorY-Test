@@ -81,7 +81,7 @@ export default function FiltersPanel({
       </div>
 
       <div className="filters-group">
-        <label>Cerca per citt\u00E0 o evento</label>
+        <label>Cerca per città o evento</label>
         <input
           type="text"
           value={searchQuery}

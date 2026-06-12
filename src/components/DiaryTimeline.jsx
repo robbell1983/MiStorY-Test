@@ -448,7 +448,7 @@ export default function DiaryTimeline({
                               opacity: 0.9
                             }}
                           >
-                            <strong>Citt\u00E0:</strong> {item.cityName}
+                            <strong>Città:</strong> {item.cityName}
                           </div>
                         )}
 
@@ -497,7 +497,7 @@ export default function DiaryTimeline({
                           onChange={(e) =>
                             setEditForm((prev) => ({ ...prev, cityName: e.target.value }))
                           }
-                          placeholder="Citt\u00E0"
+                          placeholder="Città"
                         />
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>

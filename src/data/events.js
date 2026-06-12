@@ -25,7 +25,7 @@ export const regionConfig = {
     color: '#e11d48'
   }
 };
-
+    'I testi fissi e gli eventi di default sono modificabili direttamente nei file del progetto. I link “Approfondisci” aprono voci di Wikipedia per una lettura più ampia.'
 export const defaultInfoBlocks = [
   {
     title: 'Come leggere MyStory',
@@ -42,7 +42,7 @@ export const defaultInfoBlocks = [
 export const historicalEvents = [
   {
     id: 'evt-001',
-    title: 'Gerico, tra le prime citt\u00E0 fortificate',
+    title: 'Gerico, tra le prime città fortificate',
     description:
       'Gerico viene spesso indicata tra i primi grandi insediamenti urbani e fortificati del Vicino Oriente.',
     startYear: -8300,
